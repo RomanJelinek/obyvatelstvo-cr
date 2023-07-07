@@ -1,0 +1,12 @@
+{
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/path/to/any/other/large/directory": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/path/to/any/other/large/directory": true
+  },
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "typescript.tsserver.disableAutomaticTypeAcquisition": true
+}
