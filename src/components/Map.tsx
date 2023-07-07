@@ -4,8 +4,9 @@ import { DataContext } from '@/context/dataContext/DataContext';
 import { MapContext } from '@/context/mapContext/MapContext';
 import { Box, Typography } from '@mui/material';
 import { useSetSettings } from '@/context/dataContext/updateSettings';
-import { AreaLevelValues } from '@/context/dataContext/dataContextTypes';
+import { AreaLevelValues, DataContextType } from '@/context/dataContext/dataContextTypes';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { MapContextType } from '@/context/mapContext/mapContextTypes';
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVsZW45MSIsImEiOiJjbGZ3bGFobDEwN204M3R0YTMwdnRiNHJ5In0.H5Fxt1iilORVt2Dtjc93OA';
@@ -16,20 +17,10 @@ const Map: FC = () => {
 
   const dataContext = useContext(DataContext);
   const mapContext = useContext(MapContext);
-
-  if (!dataContext || !mapContext) {
-    return (
-      <Box m={3}>
-        <Typography variant="h6" color="error">
-          Načítám
-        </Typography>
-      </Box>
-    );
-  }
-
-  const { mapInstance, setMapInstance } = mapContext;
-  const { settings, polygons } = dataContext;
   const updateSettings = useSetSettings();
+
+  const { mapInstance, setMapInstance } = mapContext as MapContextType
+  const { settings, polygons } = dataContext as DataContextType
 
   const handleColorChange = (newPolygon: string) => {
     if (mapInstance && mapInstance.getLayer(newPolygon)) {
@@ -70,7 +61,12 @@ const Map: FC = () => {
   }, [polygons[0]?.value]);
 
   useEffect(() => {
-    if (!mapInstance || !polygons || settings.areaLevel === AreaLevelValues.municipality) return;
+    if (
+      !mapInstance ||
+      !polygons ||
+      settings.areaLevel === AreaLevelValues.municipality
+    )
+      return;
     mapInstance.on('load', () => {
       polygons.forEach(({ id, coordinates, color, name, value }) => {
         mapInstance.addSource(id, {

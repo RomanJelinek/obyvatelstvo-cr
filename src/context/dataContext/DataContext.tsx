@@ -25,6 +25,7 @@ import {
 import { getPolygonColor } from '@/utils/getPolygonColor';
 import { getPolygonValue } from '@/utils/getPolygonValue';
 import { municipalities } from '@/data/municipality';
+import { filterById } from '@/utils/filterById';
 
 export const DataContext =
   createContext<DataContextType | undefined>(undefined);
@@ -71,7 +72,6 @@ export const DataContextProvider: FC<PropsWithChildren<{}>> = ({
       default:
         data = countryData;
         polygons = countryPolygon;
-        return;
     }
 
     setPolygons(
@@ -114,11 +114,3 @@ export const DataContextProvider: FC<PropsWithChildren<{}>> = ({
     </DataContext.Provider>
   );
 };
-
-function filterById(data: Data, id: string): Data {
-  const filteredData: Data = {};
-  Object.keys(data).forEach((year) => {
-    filteredData[year] = data[year].filter((item) => item.id === id);
-  });
-  return filteredData;
-}

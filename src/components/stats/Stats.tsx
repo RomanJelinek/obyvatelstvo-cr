@@ -3,9 +3,8 @@ import { DataContext } from '@/context/dataContext/DataContext';
 import { Box, getOverlayAlpha, Typography } from '@mui/material';
 import {
   AreaLevelLabels,
-  metrics,
+  DataContextType,
   MetricsLabels,
-  MetricsValues,
 } from '@/context/dataContext/dataContextTypes';
 import { getFormattedValue } from '@/utils/getFormattedValue';
 import DataTable from './DataTable';
@@ -14,22 +13,12 @@ import Graph from './Graph';
 
 const Stats = () => {
   const dataContext = useContext(DataContext);
-  if (!dataContext)
-    return (
-      <Box m={3}>
-        <Typography variant="h6" color="error">
-          Data nejsou k dispozici
-        </Typography>
-      </Box>
-    );
-  const data = dataContext.data ?? {};
-  const settings = dataContext.settings;
-  const metric = settings.selectedMetric;
   const updateSettings = useSetSettings();
+
+  const { data, settings } = dataContext as DataContextType;
+  const metric = settings.selectedMetric;
   const isSelectedData = settings.polygonId.length > 0;
-
   const selectedYear = settings?.selectedYear ?? 2023;
-
   const selectedData = data[selectedYear]?.[0] ?? {};
 
   return (
