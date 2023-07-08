@@ -1,5 +1,5 @@
 import { DistrictPolygons } from '@/data/types/dataTypes';
-import { BasicData } from '@/context/dataContext/mappers/completeDataMapper';
+import { BasicData, CityData, CountryData, DistrictData, RegionData } from '@/context/dataContext/mappers/completeDataMapper';
 
 export enum AreaLevelLabels {
   country = 'ČR',
@@ -13,6 +13,13 @@ export enum AreaLevelValues {
   region = 'region',
   district = 'district',
   municipality = 'municipality',
+}
+
+export interface InitialData {
+  cityData: Record<string, CityData[]>;
+  regionData: Record<string, RegionData[]>;
+  districtData: Record<string, DistrictData[]>;
+  countryData: Record<string, CountryData[]>;
 }
 
 export const areaLevels = [

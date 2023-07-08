@@ -10,19 +10,13 @@ import Stats from './stats/Stats';
 
 const Homepage: FC = () => {
   return (
-    <DataContextProvider>
-      <MapContextProvider>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="end"
-        >
-          <Setttings />
-          <Map />
-        </Box>
-        <Stats />
-      </MapContextProvider>
-    </DataContextProvider>
+    <>
+      <Box display="flex" justifyContent="center" alignItems="end">
+        <Setttings />
+        <Map />
+      </Box>
+      <Stats />
+    </>
   );
 };
 
