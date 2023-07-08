@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async (
   context: GetStaticPropsContext
 ) => {
   const initialData = completeDataMapper(completeData, districtsRegions);
-  return { props: { initialData }, revalidate: 24 * 60 * 60 }; 
+  return { props: { initialData } };
 };
 
 export default Home;
