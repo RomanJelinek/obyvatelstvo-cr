@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import Homepage from '@/components/Homepage';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import { completeDataMapper } from '@/context/dataContext/mappers/completeDataMapper';
@@ -13,17 +13,11 @@ interface HomeProps {
 }
 
 export const Home: FC<HomeProps> = ({ initialData }) => {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    setData(initialData);
-  }, [initialData]);
   return (
     <MapContextProvider>
-      {data && (
-        <DataContextProvider initialData={data}>
-          {data ? <Homepage /> : <p>Nečum</p>}
-        </DataContextProvider>
-      )}
+      <DataContextProvider initialData={initialData}>
+        <Homepage />
+      </DataContextProvider>
     </MapContextProvider>
   );
 };
