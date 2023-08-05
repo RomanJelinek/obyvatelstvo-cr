@@ -16,19 +16,11 @@ interface HomeProps {
 export const Home: FC<HomeProps> = ({ initialData }) => {
   const [dataToUse, setDataToUse] = useState<InitialData>();
 
-  useEffect(() => {
-    const getData = async () => {
-      const dataF = await axios.get('/api/get-data');
-      const { data } = dataF;
-      setDataToUse(data.data);
-    };
-    getData();
-  }, []);
   return (
     <>
-      {dataToUse ? (
+      {initialData ? (
         <MapContextProvider>
-          <DataContextProvider initialData={dataToUse}>
+          <DataContextProvider initialData={initialData}>
             <Homepage />
           </DataContextProvider>
         </MapContextProvider>
@@ -42,8 +34,12 @@ export const Home: FC<HomeProps> = ({ initialData }) => {
 export const getStaticProps: GetStaticProps<HomeProps> = async (
   context: GetStaticPropsContext
 ) => {
-  const initialData = completeDataMapper(completeData, districtsRegions);
-  return { props: { initialData } };
+  const initialData = await axios.get('http://localhost:3000/api/get-data');
+
+  console.log(initialData)
+
+  const { data } = initialData;
+  return { props: { initialData: data.data } };
 };
 
 export default Home;
