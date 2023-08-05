@@ -34,7 +34,7 @@ export const Home: FC<HomeProps> = ({ initialData }) => {
 export const getStaticProps: GetStaticProps<HomeProps> = async (
   context: GetStaticPropsContext
 ) => {
-  const initialData = await axios.get('http://localhost:3000/api/get-data');
+  const initialData = await axios.get('/api/get-data');
 
   console.log(initialData)
 
